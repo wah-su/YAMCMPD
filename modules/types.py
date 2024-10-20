@@ -51,5 +51,22 @@ class Mod:
         return self
 
 class Manifest:
-    def __init__(self, metadata: Metadata, mods: Union[None]):
-        ...
+    def __init__(self, metadata: Metadata, mods = []):
+        self.metadata = metadata
+        self.mods = mods or []
+
+    def getManifest(self):
+        return {
+            "metadata": self.metadata,
+            "mods": self.mods
+        }
+
+    def getMetadata(self):
+        return {"metadata": self.metadata}
+
+    def getMods(self):
+        return {"mods": self.mods}
+
+    def setMods(self, mods):
+        self.mods = mods
+
