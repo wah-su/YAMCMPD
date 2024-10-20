@@ -3,13 +3,25 @@ from modules.types import Metadata, Mod
 import argparse
 import os, sys, json
 
-parser = argparse.ArgumentParser(description = "Yet Another MineCraft ModPack Downloader")
-parser.add_argument("init", nargs = '?', type = bool,
-                    help = "Init a new mod pack.")
-args = parser.parse_args()
+root_parser = argparse.ArgumentParser(description = "Yet Another MineCraft ModPack Downloader")
+root_parser.add_argument("--pack", nargs="?", type=str, help="Provide a mod pack name")
+init_parser = argparse.ArgumentParser(parents=[root_parser], add_help=False)
+init_parser.add_argument("init", nargs = '?', default=False, type = bool, help = "Init a new mod pack.")
+addMods_parser = argparse.ArgumentParser(parents=[root_parser], add_help=False)
+addMods_parser.add_argument("addMod", nargs = '?', default=False, type = bool, help = "Add a mods to a mod pack")
+
+# root_args = root_parser.parse_args()
+init_args = init_parser.parse_args()
+addMods_args = addMods_parser.parse_args()
+
 
 def initNewPack():
-    modpackName: str = input("Enter mod pack name: ")
+
+    if init_args.pack:
+        modpackName: str = init_args.pack
+    else:
+        modpackName: str = input("Enter mod pack name: ")
+
     if modpackName == "":
         print("Required a mod pack name!")
         sys.exit(1)
@@ -59,5 +71,5 @@ Minecraft Version: {' ':<3}{minecraftVersion}
 
 
 if __name__ == "__main__":
-    if args.init:
+    if init_args.init:
         initNewPack()

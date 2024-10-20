@@ -50,3 +50,6 @@ class Mod:
     def getMod(self):
         return self
 
+class Manifest:
+    def __init__(self, metadata: Metadata, mods: Union[None]):
+        ...
